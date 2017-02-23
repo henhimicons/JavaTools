@@ -1,5 +1,3 @@
-package FileTools;
-
 import java.io.*;
 
 /**
