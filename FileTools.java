@@ -5,22 +5,27 @@ import java.io.*;
  */
 public class FileTools {
    public static byte[] ReadFromFile(String srcPath){
-       File file = new File (srcPath);
-       byte[] bytes= new byte [8*1024];
-       String data=null;
-       try {
-           FileInputStream fis = new FileInputStream(file);
-           BufferedInputStream bis = new BufferedInputStream(fis);
-           int len=0;
-           while (-1!=(len=bis.read(bytes))){
-
-           }
-       }catch (FileNotFoundException e){
-           e.printStackTrace();
-       }catch (IOException e){
-           e.printStackTrace();
-       }
-       return bytes;
+       File file = new File (path);
+        BufferedInputStream bis = null;
+        ByteArrayOutputStream baos = null;
+        byte[] bytes = new byte[5];
+        int len = 0;
+        if (file.exists()){
+            try {
+                FileInputStream fis = new FileInputStream(file);
+                bis = new BufferedInputStream(fis);
+                baos=new ByteArrayOutputStream();
+                while (-1!=(len=bis.read(bytes))){
+                    baos.write(bytes,0,len);
+                    baos.flush();
+                }
+            }catch (FileNotFoundException e){
+                e.printStackTrace();
+            }catch (IOException e){
+                e.printStackTrace();
+            }
+        }
+        return baos.toByteArray();
    }
    public static void writetoFile(String src,String data,boolean cover){
        File file = new File (src);
